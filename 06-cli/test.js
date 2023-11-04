@@ -12,7 +12,9 @@ const DEFAULT_ITEM_CADASTRAR = {
 }
 
 describe('Suite de manipulação de Herios', () => {
-
+    before(async () => {
+        await database.cadastrar(DEFAULT_ITEM_CADASTRAR)
+    })
     it('deve pesquisar um heroi usando arquivos', async () =>{
         const expected = DEFAULT_ITEM_CADASTRAR
         const [resultado] = await database.listar(expected.id)
