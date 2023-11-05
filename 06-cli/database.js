@@ -49,7 +49,17 @@ class Database {
     }
 
     async remover(id){
-        return false
+        if(!id){
+            return await this.escreverArquivo([])
+        }
+        
+        const dados = await this.obterDadosArquivo()
+        const indice = dados.findIndex(item => item.id === parseInt(id))
+        if(indice === -1){
+            throw Error('O usuario informado não existe')
+        }
+        dados.splice(indice, 1)
+        return await this.escreverArquivo(dados)
     }
 }
 
