@@ -47,6 +47,10 @@ class Database {
         const dadosFiltrados = dados.filter(item =>(id ? (item.id === id): true))
         return dadosFiltrados
     }
+
+    async remover(id){
+        return false
+    }
 }
 
 module.exports = new Database()
