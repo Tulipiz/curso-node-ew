@@ -1,20 +1,21 @@
 {
-  "name": "07-multi-db",
-  "version": "1.0.0",
-  "description": "docker run  `\r     --name postgres  `\r     -e POSTGRES_USER=luizdias  `\r     -e POSTGRES_PASSWORD=minhasenhasecreta  `\r     -e POSTGRES_DB=heroes  `\r     -p 5432:5432  `\r     -d  `\r     postgres",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "pg": "^8.11.3",
-    "pg-hstore": "^2.3.4",
-    "sequelize": "^6.34.0"
-  },
-  "devDependencies": {
-    "mocha": "^10.2.0"
-  }
+    "name": "07-multi-db",
+    "version": "1.0.0",
+    "description": "docker run  `\r     --name postgres  `\r     -e POSTGRES_USER=luizdias  `\r     -e POSTGRES_PASSWORD=minhasenhasecreta  `\r     -e POSTGRES_DB=heroes  `\r     -p 5432:5432  `\r     -d  `\r     postgres",
+    "main": "index.js",
+    "scripts": {
+        "test": "mocha src/tests/*.js",
+        "test:watch": "mocha src/tests/*.js -w"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "pg": "^8.11.3",
+        "pg-hstore": "^2.3.4",
+        "sequelize": "^6.34.0"
+    },
+    "devDependencies": {
+        "mocha": "^10.2.0"
+    }
 }
