@@ -18,6 +18,7 @@ describe('Postgrres Strategy', function () {
     this.beforeAll(async function (){
         console.log('conectando no bd')
         await context.connect()
+        await context.delete()
         await context.create(MOCK_HEROI_ATUALIZAR)
     })
 
@@ -36,7 +37,7 @@ describe('Postgrres Strategy', function () {
         delete result.id
         assert.deepEqual(result, MOCK_HEROI_CADASTRAR)
     })
-    it.only('atualizar', async function(){
+    it('atualizar', async function(){
         const [itemAtualizar] = await context.read({nome: MOCK_HEROI_ATUALIZAR.nome})
         const novoItem = {
             ...MOCK_HEROI_ATUALIZAR,
@@ -46,5 +47,10 @@ describe('Postgrres Strategy', function () {
         const [itemAtualizado] = await context.read({id: itemAtualizar.id})
         assert.deepEqual(result, 1)
         assert.deepEqual(itemAtualizado.nome, novoItem.nome)
+    })
+    it('remover por id', async function(){
+        const [item] = await context.read({})
+        const result = await context.delete(item.id)
+        assert.deepEqual(result, 1)
     })
 })
