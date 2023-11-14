@@ -1,6 +1,6 @@
 /* 
 docker ps
-docker exec -it d5e4b80bc783 `
+docker exec -it 810828fbc236 `
     mongo -u luiz -p dias --authenticationDatabase herois 
 
     */
@@ -25,7 +25,7 @@ for(let i = 0; i <= 10000; i++){
 
 db.herois.count()
 db.herois.findOne()
-db.herois.find().limit(10).sort({nome: -1})
+db.herois.find().limit(2).sort({nome: -1})
 db.herois.find({},{ poder: 1, _id: 0})
 
 // create
