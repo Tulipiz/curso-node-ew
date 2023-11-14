@@ -1,4 +1,5 @@
 const ICrud = require('./interfaces/interfaceCrud');
+const Mongoose = require('mongoose')
 const STATUS ={
     0:'Disconectado',
     1:'Conectado',
@@ -13,16 +14,16 @@ class MongoDB extends ICrud {
         this.connect()
     }
     async isConnected() {
-        const state =  STATUS[this._driver.readyState]
+        const state =  await STATUS[this._driver.readyState]
         if(state == 'Conectado') return state;
 
-        if(state !== 'Conectado') return state
-        await new Promisse(resolve => setTimeout(resolve,2000))
+        if(state !== 'Conectando') return state
+        await new Promise(resolve => setTimeout(resolve,1000))
         
-        return  STATUS[this._driver.readyState]
+        return  await STATUS[this._driver.readyState]
     }
     defineModel() {
-        heroiSchema = new Mongoose.Schema({
+        const heroiSchema = new Mongoose.Schema({
             nome: {
                 type: String,
                 required: true
@@ -39,7 +40,6 @@ class MongoDB extends ICrud {
         this._herois = Mongoose.model('herois', heroiSchema)
     }
     connect() {
-        const Mongoose = require('mongoose');
         Mongoose.connect(
             'mongodb://luiz:dias@192.168.2.184:27017/herois'
         ).catch((error) => {
@@ -48,22 +48,17 @@ class MongoDB extends ICrud {
         });
 
         const connection = Mongoose.connection;
-        connection.once('open', () => console.log('database rodando!!'));
-
         this._driver = connection
+        connection.once('open', () => console.log('database rodando!!'));
+        this.defineModel()
+        
     }
 
     async create(item) {
-        try {
-            const resultCadastrar = await model.create({
-                nome: 'Kuririn',
-                poder: 'Solar Flare'
-            })
-            console.log('resultado cadastrar', resultCadastrar)
-            
-        } catch (error) {
-            console.error('Erro ao cadastrar:', error);
-        }
+        return await this._herois.create(item);
+    }
+    read(item, skip=0,limit=10){
+        return this._herois.find(item).skip(skip).limit(limit)
     }
 }
 
