@@ -15,7 +15,7 @@ const MOCK_HEROI_ATUALIZAR = {
 
 let MOCK_HEROI_ID = ''
 let context = {}
-describe.only('MongoDb Suite de Testes', function () {
+describe('MongoDb Suite de Testes', function () {
     this.beforeAll(async () => {
         const connection = MongoDb.connect()
         context = new Context(new MongoDb(connection, HeroiSchema))
